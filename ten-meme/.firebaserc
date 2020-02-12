@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ten-meme": {
+      "hosting": {
+        "ten-meme": [
+          "ten-meme"
+        ]
+      }
+    }
+  }
+}
