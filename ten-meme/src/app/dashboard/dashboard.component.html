@@ -1,8 +1,4 @@
-<div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="1" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let card of cards">
-      <app-card></app-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+<div class="dashboard">
+  <router-outlet></router-outlet>
 </div>
+<app-footer></app-footer>

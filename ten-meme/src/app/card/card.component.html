@@ -1,19 +1,46 @@
-<mat-card class="example-card">
+<mat-card class="meme-card">
     <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="avatar">
+        <mat-card-title>Such cute, much wow</mat-card-title>
+        <mat-card-subtitle>Added: today</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <a routerLink="/details">
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    </a>
     <mat-card-content>
-        <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-        </p>
+        <mat-chip-list>
+            Tags:
+            <mat-chip>makari</mat-chip>
+            <mat-chip>hashtag</mat-chip>
+            <mat-chip>cute</mat-chip>
+            <mat-chip>funny</mat-chip>
+            <mat-chip>makari</mat-chip>
+            <mat-chip>hashtag</mat-chip>
+            <mat-chip>cute</mat-chip>
+            <mat-chip>funny</mat-chip>
+            <mat-chip>makari</mat-chip>
+            <mat-chip>hashtag</mat-chip>
+            <mat-chip>cute</mat-chip>
+            <mat-chip>funny</mat-chip>
+            <mat-chip>makari</mat-chip>
+            <mat-chip>hashtag</mat-chip>
+            <mat-chip>cute</mat-chip>
+            <mat-chip>funny</mat-chip>
+            <mat-chip>makari</mat-chip>
+            <mat-chip>hashtag</mat-chip>
+            <mat-chip>cute</mat-chip>
+            <mat-chip>funny</mat-chip>
+        </mat-chip-list>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
+        <button mat-button color="accent">
+            <mat-icon>thumb_up</mat-icon> 69
+        </button>
+        <button mat-button>
+            <mat-icon>thumb_down</mat-icon> 11
+        </button>
+        <button mat-button>
+            <mat-icon>comment</mat-icon> 5
+        </button>
     </mat-card-actions>
 </mat-card>
