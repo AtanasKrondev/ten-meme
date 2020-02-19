@@ -1,0 +1,9 @@
+<form [formGroup]="registerForm" (ngSubmit)="registerHandler()">
+    <mat-form-field>
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="email@example.com" formControlName="email" id="email">
+        <mat-error *ngIf="registerForm.get('email').invalid && registerForm.get('email').touched">
+            Enter a valid email!
+        </mat-error>
+    </mat-form-field>
+</form>

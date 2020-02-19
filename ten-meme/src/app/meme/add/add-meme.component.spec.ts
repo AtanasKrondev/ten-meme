@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
-import { AddMemeComponent } from './add-meme.component';
+import { AddMemeComponent } from './add.component';
 
 describe('AddMemeComponent', () => {
   let component: AddMemeComponent;

@@ -1,34 +1,25 @@
-import { NgModule } from '@angular/core';
+// import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { ListComponent } from './list/list.component';
-import { DetailsComponent } from './details/details.component'
-import { AddMemeComponent } from './add-meme/add-meme.component';
+import { FourOFourComponent } from './core/four-o-four/four-o-four.component';
 
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/recent'
+    redirectTo: '/meme/recent'
   },
   {
-    path: 'recent',
-    component: ListComponent,
-  },
-  {
-    path: 'details',
-    component: DetailsComponent,
-  },
-  {
-    path: 'add',
-    component: AddMemeComponent,
-  },
-
+    path: '**',
+    component: FourOFourComponent,
+  }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes)],
+//   exports: [RouterModule]
+// })
+// export class AppRoutingModule { }
+
+export const AppRoutingModule = RouterModule.forRoot(routes);
+

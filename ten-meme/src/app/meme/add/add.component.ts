@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-meme',
-  templateUrl: './add-meme.component.html',
-  styleUrls: ['./add-meme.component.scss']
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss']
 })
 export class AddMemeComponent {
   addressForm = this.fb.group({
