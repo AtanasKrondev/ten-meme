@@ -1,0 +1,18 @@
+<mat-card class="comment-form-card">
+    <mat-card-header>
+        <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="avatar">
+        <form class="comment-form" [formGroup]="commentForm" (ngSubmit)="commentHandler(commentForm.value)">
+            <mat-form-field class="comment-input">
+                <mat-label>Leave a comment</mat-label>
+                <textarea matInput placeholder="Ex. It makes me feel..." formControlName="comment"
+                    id="comment"></textarea>
+            </mat-form-field>
+            <mat-error *ngIf="commentForm.get('comment').invalid && commentForm.get('comment').touched">
+                Your comment must be at least 5 characters long!
+            </mat-error>
+            <button mat-raised-button color="accent" type="submit" [disabled]="commentForm.invalid">
+                Comment
+            </button>
+        </form>
+    </mat-card-header>
+</mat-card>

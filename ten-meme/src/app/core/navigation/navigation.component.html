@@ -2,18 +2,11 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
-      <button mat-raised-button color="warn" routerLink="/meme/add">
+      <button mat-raised-button color="accent" routerLink="/meme/add">
         <mat-icon>add</mat-icon> Add meme
       </button>
     </mat-toolbar>
-    <!-- <form formGroup="search" novalidate>
-      <mat-form-field class="example-full-width">
-        <mat-label>
-          <mat-icon>search</mat-icon> Search
-        </mat-label>
-        <input matInput>
-      </mat-form-field>
-    </form> -->
+    <app-search></app-search>
     <mat-nav-list>
       <a mat-list-item routerLink="/meme/recent">
         <mat-icon>access_time</mat-icon> Recent
@@ -21,13 +14,13 @@
       <a mat-list-item routerLink="">
         <mat-icon>thumb_up</mat-icon> Most liked
       </a>
-      <a mat-list-item routerLink="">
+      <a mat-list-item routerLink="/makari">
         <mat-icon>visibility_off</mat-icon> NSFW
       </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="warn">
+    <mat-toolbar color="accent">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>

@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 
-import { CommentComponent } from './comment-card/comment.component';
-import { CommentFieldComponent } from './comment-field/comment-field.component';
+import { CommentCardComponent } from './comment-card/comment-card.component';
+import { CommentFormComponent } from './comment-form/comment-form.component';
 
 @NgModule({
-  declarations: [CommentComponent, CommentFieldComponent],
+  declarations: [CommentCardComponent, CommentFormComponent],
   imports: [
     CommonModule,
     MaterialModule,
+    ReactiveFormsModule
   ],
-  exports: [CommentComponent, CommentFieldComponent],
+  exports: [CommentCardComponent, CommentFormComponent],
 })
 export class CommentModule { }

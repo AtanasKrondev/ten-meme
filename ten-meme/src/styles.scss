@@ -12,8 +12,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$ten-meme-primary: mat-palette($mat-green);
-$ten-meme-accent: mat-palette($mat-blue, A200, A100, A400);
+$ten-meme-primary: mat-palette($mat-blue);
+$ten-meme-accent: mat-palette($mat-red, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $ten-meme-warn: mat-palette($mat-red);
