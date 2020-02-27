@@ -1,6 +1,5 @@
-// import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FourOFourComponent } from './core/four-o-four/four-o-four.component';
+import { FourOFourComponent } from './shared/four-o-four/four-o-four.component';
 
 
 const routes: Routes = [
@@ -15,11 +14,4 @@ const routes: Routes = [
   }
 ];
 
-// @NgModule({
-//   imports: [RouterModule.forRoot(routes)],
-//   exports: [RouterModule]
-// })
-// export class AppRoutingModule { }
-
 export const AppRoutingModule = RouterModule.forRoot(routes);
-

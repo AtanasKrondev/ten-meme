@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
 import { MemeModule } from './meme/meme.module';
 import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
-import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module'
+import { AuthGuard } from './core/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,9 @@ import { CoreModule } from './core/core.module';
     UserModule,
     MemeModule,
     CommentModule,
-    CoreModule,
+    SharedModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
