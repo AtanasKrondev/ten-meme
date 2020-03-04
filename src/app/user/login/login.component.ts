@@ -24,6 +24,5 @@ export class LoginComponent {
 
   loginHandler({ email, password }: { email: string, password: string }) {
     this.userService.login(email, password);
-    this.router.navigate(['']);
   }
 }

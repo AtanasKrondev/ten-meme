@@ -1,0 +1,99 @@
+<mat-accordion multi="true">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Display Name
+      </mat-panel-title>
+      <mat-panel-description>
+        Edit your name
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="displayNameForm" (ngSubmit)="displayNameHandler(displayNameForm.value)" class="settings-form">
+      <mat-form-field class="settings-input">
+        <mat-label>Display Name</mat-label>
+        <input matInput [value]="currentUser.displayName" formControlName="displayName" id="displayName" type="text"
+          required>
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit" [disabled]="displayNameForm.invalid">
+        Update name
+      </button>
+    </form>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Profile photo
+      </mat-panel-title>
+      <mat-panel-description>
+        Edit your profile photo
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="photoURLForm" (ngSubmit)="photoURLHandler(photoURLForm.value)" class="settings-form">
+      <mat-form-field class="settings-input">
+        <mat-label>Photo URL</mat-label>
+        <input matInput placeholder="http(s)://..." [value]="currentUser.photoURL" formControlName="photoURL"
+          id="photoURL" type="text" required>
+        <mat-hint align="end">Valid file types: *.jpg, *.gif, *.png</mat-hint>
+        <mat-error *ngIf="photoURLForm.get('photoURL').invalid && photoURLForm.get('photoURL').touched">
+          Enter a valid image URL!
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit" [disabled]="photoURLForm.invalid">
+        Update photo
+      </button>
+    </form>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Email
+      </mat-panel-title>
+      <mat-panel-description>
+        Change your email, requires reauthentication
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="emailForm" (ngSubmit)="openAuthDialog(emailForm.value)" class="settings-form">
+      <mat-form-field class="settings-input">
+        <mat-label>New Email</mat-label>
+        <input matInput placeholder="email@example.com" [value]="currentUser.email" formControlName="email" id="email"
+          type="email" required>
+        <mat-error *ngIf="emailForm.get('email').invalid && emailForm.get('email').touched">
+          Enter a valid email!
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit" [disabled]="emailForm.invalid">
+        Change email
+      </button>
+    </form>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Password
+      </mat-panel-title>
+      <mat-panel-description>
+        Change your password, requires reauthentication
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="passwordForm" (ngSubmit)="openAuthDialog(passwordForm.value)" class="settings-form">
+      <mat-form-field class="settings-input">
+        <mat-label>New Password</mat-label>
+        <input matInput placeholder="******" formControlName="password" id="password" type="password" required>
+        <mat-error *ngIf="passwordForm.get('password').invalid && passwordForm.get('password').touched">
+          Password must be at least 6 symbols!
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="settings-input">
+        <mat-label>Confirm New Password</mat-label>
+        <input matInput placeholder="******" formControlName="rePassword" id="rePassword" type="password" required>
+        <mat-error
+          *ngIf="passwordForm.get('rePassword').invalid && passwordForm.get('rePassword').errors.ConfirmPassword">
+          Passwords do not match!
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="accent" type="submit" [disabled]="passwordForm.invalid">
+        Change password
+      </button>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -7,7 +7,6 @@ import { UserService } from '../../user/user.service';
   providedIn: 'root'
 })
 export class GuestGuard implements CanActivate {
-  isLogged = true;
 
   constructor(private router: Router, private userService: UserService) { }
 

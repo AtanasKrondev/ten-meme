@@ -11,7 +11,7 @@ import { UserService } from '../../user/user.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent {
+export class NavigationComponent{
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -20,12 +20,16 @@ export class NavigationComponent {
     );
 
   get isLogged() { return this.userService.isLogged }
+  get currentUser() {return this.userService.currentUser}
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private userService: UserService,
     private router: Router,
-  ) { }
+  ) {
+    // this.currentUser = this.userService.currentUser || null;
+    // console.log(this.userService.currentUser)
+  }
 
   logout() {
     this.userService.logout();

@@ -17,7 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -38,6 +39,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatRadioModule,
     MatCheckboxModule,
     MatTabsModule,
+    MatExpansionModule,
+    MatDialogModule,
   ],
   exports: [
     MatGridListModule,
@@ -57,6 +60,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatRadioModule,
     MatCheckboxModule,
     MatTabsModule,
+    MatExpansionModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule { }
