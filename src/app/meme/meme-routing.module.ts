@@ -1,8 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { DetailsComponent } from './details/details.component';
 import { ListComponent } from './list/list.component';
 import { AddMemeComponent } from './add/add.component';
-import { AuthGuard } from '../core/guards/auth.guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/user/login']);
 
 const routes: Routes = [
     {
@@ -24,7 +26,8 @@ const routes: Routes = [
             {
                 path: 'add',
                 component: AddMemeComponent,
-                canActivate: [AuthGuard],
+                canActivate: [AngularFireAuthGuard],
+                data: { authGuardPipe: redirectUnauthorizedToLogin },
             }
         ]
     }

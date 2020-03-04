@@ -19,11 +19,7 @@ export class SettingsComponent {
   currentUser;
   authDialogRef: MatDialogRef<AuthDialogComponent>
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService,
-    private dialog: MatDialog,
-  ) {
+  constructor(private fb: FormBuilder, private userService: UserService, private dialog: MatDialog) {
     this.currentUser = this.userService.currentUser;
     this.displayNameForm = this.fb.group({
       displayName: [this.currentUser.displayName, Validators.required],
@@ -40,19 +36,11 @@ export class SettingsComponent {
     }, { validator: PasswordValidator.MatchPassword })
   }
 
-  openAuthDialog({ email, password }) {
+  openAuthDialog(formValue) {
     this.authDialogRef = this.dialog.open(AuthDialogComponent);
     this.authDialogRef.afterClosed()
       .subscribe(({ confirmPassword }) => {
-        if (confirmPassword) {
-          this.userService.authPrompt(confirmPassword)
-            .then(result => console.log(result))
-            .then(() => {
-              if (email) { this.userService.updateEmail(email) };
-              if (password) { this.userService.updatePassword(password) };
-            })
-            .catch((err) => console.log(err));
-        }
+        this.userService.handleAuthPrompt(confirmPassword,formValue);
       });
   }
 
@@ -63,13 +51,4 @@ export class SettingsComponent {
   photoURLHandler(photoURL: Object) {
     this.userService.updatePhotoURL(photoURL);
   }
-
-  // emailHandler(value) {
-  //   this.openAuthDialog(email);
-  // }
-
-  // passwordHandler(password: string) {
-  //   this.openAuthDialog(password);
-  //   this.userService.updatePassword(password);
-  // }
 }

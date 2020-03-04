@@ -9,10 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AuthDialogComponent {
   authForm: FormGroup;
-  constructor(
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<AuthDialogComponent>
-  ) {
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<AuthDialogComponent>) {
+    dialogRef.disableClose = true;
     this.authForm = this.fb.group({
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
     })

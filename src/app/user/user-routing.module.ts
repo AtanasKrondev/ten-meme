@@ -1,10 +1,12 @@
 import { RouterModule, Routes } from '@angular/router';
+import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AuthGuard } from '../core/guards/auth.guard';
-import { GuestGuard } from '../core/guards/guest.guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/user/login']);
+const redirectLoggedInToIndex = () => redirectLoggedInTo(['']);
 
 const routes: Routes = [
     {
@@ -18,22 +20,27 @@ const routes: Routes = [
             {
                 path: 'profile',
                 component: ProfileComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AngularFireAuthGuard],
+                data: { authGuardPipe: redirectUnauthorizedToLogin },
             },
             {
                 path: 'settings',
                 component: SettingsComponent,
-                canActivate: [AuthGuard],
+                canActivate: [AngularFireAuthGuard],
+                data: { authGuardPipe: redirectUnauthorizedToLogin },
             },
             {
                 path: 'login',
                 component: LoginComponent,
-                canActivate: [GuestGuard],
+                canActivate: [AngularFireAuthGuard],
+                data: { authGuardPipe: redirectLoggedInToIndex },
+
             },
             {
                 path: 'register',
                 component: RegisterComponent,
-                canActivate: [GuestGuard],
+                canActivate: [AngularFireAuthGuard],
+                data: { authGuardPipe: redirectLoggedInToIndex },
             }
         ]
     }

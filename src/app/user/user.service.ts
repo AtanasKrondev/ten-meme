@@ -84,4 +84,16 @@ export class UserService {
   authPrompt(confirmPassword: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(this.currentUser.email, confirmPassword)
   }
+
+  handleAuthPrompt(confirmPassword: string, { email, password }: { email: string, password: string }) {
+    if (confirmPassword) {
+      this.authPrompt(confirmPassword)
+        .then(result => console.log(result))
+        .then(() => {
+          if (email) { this.updateEmail(email) };
+          if (password) { this.updatePassword(password) };
+        })
+        .catch((err) => console.log(err));
+    }
+  }
 }

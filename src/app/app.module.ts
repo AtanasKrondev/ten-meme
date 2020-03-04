@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 import { MaterialModule } from './material.module';
 
@@ -16,8 +17,9 @@ import { AppComponent } from './app.component';
 import { MemeModule } from './meme/meme.module';
 import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
-import { SharedModule } from './shared/shared.module'
-import { AuthGuard } from './core/guards/auth.guard';
+import { SharedModule } from './shared/shared.module';
+
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,7 @@ import { AuthGuard } from './core/guards/auth.guard';
     CommentModule,
     SharedModule,
   ],
-  providers: [AuthGuard],
+  providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
