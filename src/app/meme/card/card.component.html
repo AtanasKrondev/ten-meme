@@ -1,11 +1,11 @@
 <mat-card class="meme-card">
     <mat-card-header>
         <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="avatar">
-        <mat-card-title>Such cute, much wow</mat-card-title>
-        <mat-card-subtitle>Added: today</mat-card-subtitle>
+        <mat-card-title>{{meme.title}}</mat-card-title>
+        <mat-card-subtitle>By: {{meme.authorId}}</mat-card-subtitle>
     </mat-card-header>
-    <a routerLink="/meme/details">
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <a routerLink="/meme/details/{{meme.id}}">
+        <img mat-card-image src="{{meme.imageUrl}}" alt="{{meme.title}}">
     </a>
     <mat-card-actions>
         <button mat-button color="accent">

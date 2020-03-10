@@ -5,9 +5,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from '../environments/environment';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { environment } from '../environments/environment';
 
 import { MaterialModule } from './material.module';
 
@@ -28,6 +29,7 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     AngularFireAuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,

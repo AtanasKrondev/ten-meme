@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { regex } from '../../core/validators/regex.validator'
+import { MemeService } from '../meme.service';
+import { regex } from '../../core/validators/regex.validator';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-add-meme',
@@ -15,10 +17,13 @@ export class AddMemeComponent {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
-
+  uid: string;
   addMemeForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private memeService: MemeService,
+    private userService: UserService) {
+    this.uid = this.userService.currentUser.uid;
     this.addMemeForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(140)]],
       imageUrl: ['', [Validators.required, Validators.pattern(regex.imageUrl)]],
@@ -27,7 +32,7 @@ export class AddMemeComponent {
     })
   }
 
-  add(event: MatChipInputEvent): void {
+  addTag(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
     const tags = this.addMemeForm.get('tags');
@@ -41,13 +46,11 @@ export class AddMemeComponent {
     }
   }
 
-  remove(i: number): void {
+  removeTag(i: number): void {
     (this.addMemeForm.get('tags') as FormArray).removeAt(i);
   }
 
-  addMemeHandler({ title, imageUrl, nsfw, tags }:
-    { title: string, imageUrl: string, nsfw: boolean, tags: [] }) {
-    console.log(title, imageUrl, nsfw, tags);
-    // console.log(this.addMemeForm.value)
+  addMemeHandler({ title, imageUrl, nsfw, tags }: { title: string, imageUrl: string, nsfw: boolean, tags: string[] }) {
+    this.memeService.addMeme({ title, imageUrl, nsfw, tags, authorId: this.uid });
   }
 }

@@ -1,9 +1,4 @@
-<div class="list-item">
-    <app-card></app-card>
-</div>
-<div class="list-item">
-    <app-card></app-card>
-</div>
-<div class="list-item">
-    <app-card></app-card>
+<p *ngIf="!memes">Loading...</p>
+<div class="list-item" *ngFor="let meme of memes">
+    <app-card [meme]="meme"></app-card>
 </div>

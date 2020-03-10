@@ -16,7 +16,7 @@
       <mat-form-field class="add-meme-input">
         <mat-label>Image URL</mat-label>
         <input matInput placeholder="http(s)://..." formControlName="imageUrl" id="imageUrl" type="text" required>
-        <mat-hint align="end">Valid file types: *.jpg, *.gif, *.png</mat-hint>
+        <mat-hint align="end">Valid file types: *.jpg, *.jpeg, *.gif, *.png</mat-hint>
         <mat-error *ngIf="addMemeForm.get('imageUrl').invalid && addMemeForm.get('imageUrl').touched">
           Enter a valid image URL!
         </mat-error>
@@ -27,13 +27,13 @@
       <mat-form-field class="add-meme-input">
         <mat-chip-list #chipList>
           <mat-chip *ngFor="let tag of addMemeForm.get('tags').value; index as i" [selectable]="selectable"
-            [removable]="removable" (removed)="remove(i)">
+            [removable]="removable" (removed)="removeTag(i)">
             {{tag}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
           <input placeholder="Tags" [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)">
+            (matChipInputTokenEnd)="addTag($event)">
         </mat-chip-list>
       </mat-form-field>
     </mat-card-content>
