@@ -6,4 +6,8 @@ export interface Meme {
     authorId: string,
 }
 
-export interface MemeId extends Meme {id: string};
+export interface MemeId extends Meme {
+    id: string,
+    displayName: string,
+    photoURL: string
+};

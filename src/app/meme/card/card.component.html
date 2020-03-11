@@ -1,8 +1,8 @@
 <mat-card class="meme-card">
     <mat-card-header>
-        <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="avatar">
+        <img mat-card-avatar src="{{meme.photoURL}}" alt="avatar">
         <mat-card-title>{{meme.title}}</mat-card-title>
-        <mat-card-subtitle>By: {{meme.authorId}}</mat-card-subtitle>
+        <mat-card-subtitle>By: {{meme.displayName}}</mat-card-subtitle>
     </mat-card-header>
     <a routerLink="/meme/details/{{meme.id}}">
         <img mat-card-image src="{{meme.imageUrl}}" alt="{{meme.title}}">

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, flatMap, tap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
 import { Meme, MemeId } from '../shared/interfaces/meme';
 import { UserService } from '../user/user.service';
 
@@ -21,13 +21,13 @@ export class MemeService {
     this.memes = this.memeCollection.snapshotChanges()
       .pipe(
         map(actions => actions.map(a => {
-          const data = a.payload.doc.data() as Meme;
-          if(data.authorId){
-            this.userService.getUser(data.authorId).subscribe(a => console.log(a))
-          }
+          const memeData = a.payload.doc.data() as Meme;
           const id = a.payload.doc.id;
-          return { id, ...data };
-        })))
+          return this.userService.getUser(memeData.authorId).pipe(
+            map(authorData => Object.assign({}, { id, ...memeData, ...authorData })))
+        })),
+        flatMap(observables => combineLatest(observables))
+      )
   }
 
   addMeme(meme: Meme) {
@@ -40,10 +40,13 @@ export class MemeService {
   getMemeById(id: string) {
     return this.memeCollection.doc(id).snapshotChanges().pipe(
       map(a => {
-        const data = a.payload.data() as Meme;
+        const memeData = a.payload.data() as Meme;
         const id = a.payload.id;
-        return { id, ...data };
-      })
+        return this.userService.getUser(memeData.authorId).pipe(
+          map(authorData => Object.assign({}, { id, ...memeData, ...authorData })))
+      }),
+      flatMap(observables => combineLatest(observables)),
+      // tap(a => console.log(a)),
     )
   }
 }

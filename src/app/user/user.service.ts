@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { User } from '../shared/interfaces/user';
 import { Router } from '@angular/router';
 import { firestore } from 'firebase';
+import { map, flatMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -107,7 +108,10 @@ export class UserService {
     this.userCollection.doc(this.currentUser.uid).set({ uploads: firestore.FieldValue.arrayUnion(memeId) }, { merge: true }).catch(err => console.log(err))
   }
 
-  getUser(uid:string){
-    return this.userCollection.doc(uid).valueChanges()
+  getUser(uid: string) {
+    return this.userCollection.doc(uid).snapshotChanges().pipe(map(a => {
+      const userData = a.payload.data() as User;
+      return { ...userData };
+    }))
   }
 }

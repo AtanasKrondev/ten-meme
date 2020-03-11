@@ -12,6 +12,7 @@ export class ListComponent {
   constructor(private memeService: MemeService) {
     this.memeService.memes.subscribe(memes => {
       this.memes = memes;
+      console.log(memes)
     });
   }
 }
