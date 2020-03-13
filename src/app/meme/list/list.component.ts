@@ -10,9 +10,6 @@ import { MemeId } from 'src/app/shared/interfaces/meme';
 export class ListComponent {
   memes: MemeId[];
   constructor(private memeService: MemeService) {
-    this.memeService.memes.subscribe(memes => {
-      this.memes = memes;
-      console.log(memes)
-    });
+    this.memeService.memes.subscribe(memes => this.memes = memes);
   }
 }

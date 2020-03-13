@@ -20,15 +20,15 @@ const routes: Routes = [
                 component: ListComponent
             },
             {
-                path: 'details',
-                component: DetailsComponent,
-            },
-            {
                 path: 'add',
                 component: AddMemeComponent,
                 canActivate: [AngularFireAuthGuard],
                 data: { authGuardPipe: redirectUnauthorizedToLogin },
-            }
+            },
+            {
+                path: 'details/:id',
+                component: DetailsComponent,
+            },
         ]
     }
 ];

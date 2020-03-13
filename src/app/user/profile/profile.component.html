@@ -1,29 +1,23 @@
-<mat-tab-group color="accent">
+<mat-tab-group mat-stretch-tabs color="accent">
     <mat-tab label="Uploads">
-        <div class="list-item" *ngFor="let meme of memes">
-            <app-card [meme]="meme"></app-card>
-        </div>
+        <ng-template matTabContent>
+            <div class="list-item" *ngFor="let meme of uploads$ | async">
+                <app-card [meme]="meme"></app-card>
+            </div>
+        </ng-template>
     </mat-tab>
     <mat-tab label="Likes">
-        <div class="list-item">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>
-                        Nothing to show here
-                    </mat-card-title>
-                </mat-card-header>
-            </mat-card>
-        </div>
+        <ng-template matTabContent>
+            <div class="list-item" *ngFor="let meme of likes$ | async">
+                <app-card [meme]="meme"></app-card>
+            </div>
+        </ng-template>
     </mat-tab>
     <mat-tab label="Favorites">
-        <!-- <div class="list-item">
-            <app-card></app-card>
-        </div>
-        <div class="list-item">
-            <app-card></app-card>
-        </div>
-        <div class="list-item">
-            <app-card></app-card>
-        </div> -->
+        <ng-template matTabContent>
+            <div class="list-item" *ngFor="let meme of favorites$ | async">
+                <app-card [meme]="meme"></app-card>
+            </div>
+        </ng-template>
     </mat-tab>
 </mat-tab-group>

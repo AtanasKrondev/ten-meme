@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { firestore } from 'firebase/app';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MemeService } from '../meme.service';
 import { regex } from '../../core/validators/regex.validator';
@@ -17,18 +18,18 @@ export class AddMemeComponent {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
-  uid: string;
+  currentUser;
   addMemeForm: FormGroup;
 
   constructor(private fb: FormBuilder,
     private memeService: MemeService,
     private userService: UserService) {
-    this.uid = this.userService.currentUser.uid;
+    this.currentUser = this.userService.currentUser;
     this.addMemeForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(140)]],
       imageUrl: ['', [Validators.required, Validators.pattern(regex.imageUrl)]],
       nsfw: false,
-      tags: this.fb.array([])
+      tags: this.fb.array([]),
     })
   }
 
@@ -38,7 +39,7 @@ export class AddMemeComponent {
     const tags = this.addMemeForm.get('tags');
 
     if (!tags.value.includes(value) && (value || '').trim()) {
-      (tags as FormArray).push(new FormControl(value));
+      (tags as FormArray).push(new FormControl(value.toLowerCase()));
     }
 
     if (input) {
@@ -51,6 +52,15 @@ export class AddMemeComponent {
   }
 
   addMemeHandler({ title, imageUrl, nsfw, tags }: { title: string, imageUrl: string, nsfw: boolean, tags: string[] }) {
-    this.memeService.addMeme({ title, imageUrl, nsfw, tags, authorId: this.uid });
+    this.memeService.addMeme({
+      title,
+      imageUrl,
+      nsfw,
+      tags,
+      authorId: this.currentUser.uid,
+      authorName: this.currentUser.displayName,
+      authorPhoto: this.currentUser.photoURL,
+      createdAt: firestore.FieldValue.serverTimestamp()
+    });
   }
 }

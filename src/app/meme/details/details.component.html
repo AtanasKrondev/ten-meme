@@ -1,5 +1,5 @@
-<div class="details-section">
-    <app-card></app-card>
+<div class="details-section" *ngIf="meme">
+    <app-card [meme]="meme"></app-card>
     <mat-card>
         <mat-card-actions>
             <button mat-raised-button color="accent" (click)="goBack()">
@@ -9,26 +9,7 @@
         <mat-card-content>
             <mat-chip-list>
                 Tags:
-                <mat-chip>makari</mat-chip>
-                <mat-chip>hashtag</mat-chip>
-                <mat-chip>cute</mat-chip>
-                <mat-chip>funny</mat-chip>
-                <mat-chip>makari</mat-chip>
-                <mat-chip>hashtag</mat-chip>
-                <mat-chip>cute</mat-chip>
-                <mat-chip>funny</mat-chip>
-                <mat-chip>makari</mat-chip>
-                <mat-chip>hashtag</mat-chip>
-                <mat-chip>cute</mat-chip>
-                <mat-chip>funny</mat-chip>
-                <mat-chip>makari</mat-chip>
-                <mat-chip>hashtag</mat-chip>
-                <mat-chip>cute</mat-chip>
-                <mat-chip>funny</mat-chip>
-                <mat-chip>makari</mat-chip>
-                <mat-chip>hashtag</mat-chip>
-                <mat-chip>cute</mat-chip>
-                <mat-chip>funny</mat-chip>
+                <mat-chip *ngFor="let tag of meme.tags">{{tag}}</mat-chip>
             </mat-chip-list>
         </mat-card-content>
     </mat-card>

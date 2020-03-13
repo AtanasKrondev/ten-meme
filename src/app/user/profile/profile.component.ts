@@ -12,30 +12,16 @@ import { Observable, combineLatest } from 'rxjs';
 })
 export class ProfileComponent {
   uid: string;
-  memes: MemeId[];
+  // uploads: Observable;
+  uploads$;
+  likes$;
+  favorites$;
 
   constructor(private userService: UserService,
     private memeService: MemeService) {
     this.uid = this.userService.currentUser.uid;
-    this.userService.getUser(this.uid)
-      .pipe(
-        map(a => a.uploads.map(id => this.memeService.getMemeById(id))),
-        flatMap(observables => combineLatest(observables)),
-        flatMap(observables => combineLatest(observables)),
-      )
-      .subscribe(memes => {
-        this.memes = memes;
-        console.log(memes)
-      });
-    // this.userService.userCollection.doc(this.userService.currentUser.uid)
-    //   .valueChanges()
-    //   .subscribe(({ uploads }) => {
-    //     if (uploads) {
-    //       uploads.forEach(upload => {
-    //         this.memeService.getMemeById(upload)
-    //           .subscribe(a => this.memes.push(a))
-    //       })
-    //     };
-    //   })
+    this.uploads$ = this.memeService.getMemeListOfUser(this.uid, 'uploads');
+    this.likes$ = this.memeService.getMemeListOfUser(this.uid, 'likes');
+    this.favorites$ = this.memeService.getMemeListOfUser(this.uid, 'favorites');
   }
 }

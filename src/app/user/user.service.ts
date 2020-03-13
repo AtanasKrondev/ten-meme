@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { User } from '../shared/interfaces/user';
 import { Router } from '@angular/router';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase/app';
 import { map, flatMap } from 'rxjs/operators';
 
 @Injectable({
@@ -104,8 +104,10 @@ export class UserService {
     }
   }
 
-  pushMeme(memeId: string) {
-    this.userCollection.doc(this.currentUser.uid).set({ uploads: firestore.FieldValue.arrayUnion(memeId) }, { merge: true }).catch(err => console.log(err))
+  pushMeme(memeId: string, array: string) {
+    this.userCollection.doc(this.currentUser.uid)
+      .set({ [array]: firestore.FieldValue.arrayUnion(memeId) }, { merge: true })
+      .catch(err => console.log(err));
   }
 
   getUser(uid: string) {

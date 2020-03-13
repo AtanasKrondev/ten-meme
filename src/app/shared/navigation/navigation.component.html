@@ -27,10 +27,13 @@
       </button>
       <span routerLink="">10MEME</span>
       <span class="spacer"></span>
-      <button mat-button [matMenuTriggerFor]="menu">
+      <button *ngIf="currentUser" mat-button [matMenuTriggerFor]="menu">
         <span>{{currentUser?.displayName}} </span>
         <img *ngIf="currentUser?.photoURL" mat-card-avatar src="{{currentUser.photoURL}}" alt="avatar">
         <mat-icon *ngIf="!currentUser?.photoURL">account_circle</mat-icon>
+      </button>
+      <button *ngIf="!currentUser" mat-raised-button color="primary" [matMenuTriggerFor]="menu">
+        Enter
       </button>
       <mat-menu #menu="matMenu">
         <button *ngIf="!isLogged" mat-menu-item routerLink="/user/login">
