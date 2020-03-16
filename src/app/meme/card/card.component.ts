@@ -9,6 +9,7 @@ import { UserService } from 'src/app/user/user.service';
 })
 export class CardComponent {
   @Input() meme: MemeId;
+  @Input() user;
 
   constructor(private userService: UserService) { }
 
@@ -16,7 +17,15 @@ export class CardComponent {
     this.userService.pushMeme(id, 'likes');
   }
 
+  unLike(id: string) {
+    this.userService.removeMeme(id, 'likes');
+  }
+
   favorite(id: string) {
     this.userService.pushMeme(id, 'favorites');
+  }
+
+  unFavorite(id: string) {
+    this.userService.removeMeme(id, 'favorites');
   }
 }

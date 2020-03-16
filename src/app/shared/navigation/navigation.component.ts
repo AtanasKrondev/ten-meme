@@ -21,12 +21,21 @@ export class NavigationComponent {
 
   get isLogged() { return this.userService.isLogged }
   get currentUser() { return this.userService.currentUser }
+  likes;
+  favorites;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private userService: UserService,
     private router: Router,
-  ) { }
+  ) {
+    console.log('makari');
+    // this.userService.getUser(this.currentUser.uid).subscribe(user => {
+    //   console.log(user.likes);
+    //   console.log(user.favorites);
+    // })
+
+  }
 
   logout() {
     this.userService.logout();

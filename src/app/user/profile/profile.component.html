@@ -2,21 +2,21 @@
     <mat-tab label="Uploads">
         <ng-template matTabContent>
             <div class="list-item" *ngFor="let meme of uploads$ | async">
-                <app-card [meme]="meme"></app-card>
+                <app-card [meme]="meme" [user]="user"></app-card>
             </div>
         </ng-template>
     </mat-tab>
     <mat-tab label="Likes">
         <ng-template matTabContent>
             <div class="list-item" *ngFor="let meme of likes$ | async">
-                <app-card [meme]="meme"></app-card>
+                <app-card [meme]="meme" [user]="user"></app-card>
             </div>
         </ng-template>
     </mat-tab>
     <mat-tab label="Favorites">
         <ng-template matTabContent>
             <div class="list-item" *ngFor="let meme of favorites$ | async">
-                <app-card [meme]="meme"></app-card>
+                <app-card [meme]="meme" [user]="user"></app-card>
             </div>
         </ng-template>
     </mat-tab>

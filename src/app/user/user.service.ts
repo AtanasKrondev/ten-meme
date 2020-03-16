@@ -105,9 +105,25 @@ export class UserService {
   }
 
   pushMeme(memeId: string, array: string) {
-    this.userCollection.doc(this.currentUser.uid)
-      .set({ [array]: firestore.FieldValue.arrayUnion(memeId) }, { merge: true })
-      .catch(err => console.log(err));
+    if (this.currentUser) {
+      this.userCollection.doc(this.currentUser.uid)
+        .set({ [array]: firestore.FieldValue.arrayUnion(memeId) }, { merge: true })
+        .catch(err => console.log(err));
+    }
+    else {
+      console.log('ne moi tai da praish')
+    }
+  }
+
+  removeMeme(memeId: string, array: string) {
+    if (this.currentUser) {
+      this.userCollection.doc(this.currentUser.uid)
+        .set({ [array]: firestore.FieldValue.arrayRemove(memeId) }, { merge: true })
+        .catch(err => console.log(err));
+    }
+    else {
+      console.log('ne moi tai da praish')
+    }
   }
 
   getUser(uid: string) {

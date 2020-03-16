@@ -19,16 +19,18 @@ export class MemeService {
     private userService: UserService,
     private router: Router,
   ) {
-    this.memeCollection = this.afs.collection<Meme>('memes');
+    this.memeCollection = this.afs.collection<Meme>('memes', ref =>
+      ref.orderBy('createdAt', 'desc'));
     this.memes = this.memeCollection.snapshotChanges()
       .pipe(
+        take(1),
         map(actions => actions.map(a => {
           const memeData = a.payload.doc.data() as Meme;
           const id = a.payload.doc.id;
           return { id, ...memeData }
         })),
         tap(a => console.log(a))
-      )
+      );
   }
 
   addMeme(meme: Meme) {

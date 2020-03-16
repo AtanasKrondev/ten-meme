@@ -12,10 +12,10 @@ import { Observable, combineLatest } from 'rxjs';
 })
 export class ProfileComponent {
   uid: string;
-  // uploads: Observable;
   uploads$;
   likes$;
   favorites$;
+  user;
 
   constructor(private userService: UserService,
     private memeService: MemeService) {
@@ -23,5 +23,6 @@ export class ProfileComponent {
     this.uploads$ = this.memeService.getMemeListOfUser(this.uid, 'uploads');
     this.likes$ = this.memeService.getMemeListOfUser(this.uid, 'likes');
     this.favorites$ = this.memeService.getMemeListOfUser(this.uid, 'favorites');
+    this.userService.getUser(this.uid).subscribe(user => this.user = user);
   }
 }

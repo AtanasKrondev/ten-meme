@@ -5,14 +5,12 @@ import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { NavigationComponent } from './navigation/navigation.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { FooterComponent } from './footer/footer.component';
 import { FourOFourComponent } from './four-o-four/four-o-four.component';
 import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
     NavigationComponent,
     FooterComponent,
     FourOFourComponent,
@@ -25,7 +23,6 @@ import { SearchComponent } from './search/search.component';
     AppRoutingModule,
   ],
   exports: [
-    DashboardComponent,
     NavigationComponent,
     FooterComponent,
     FourOFourComponent,

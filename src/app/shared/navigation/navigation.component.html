@@ -60,7 +60,10 @@
     </mat-toolbar>
 
     <!-- Add Content Here -->
-    <app-dashboard></app-dashboard>
+    <div class="dashboard">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
 
   </mat-sidenav-content>
 </mat-sidenav-container>
