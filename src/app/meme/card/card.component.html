@@ -1,3 +1,4 @@
+<p *ngIf="!meme">Loading......</p>
 <mat-card class="meme-card">
     <mat-card-header>
         <img mat-card-avatar src="{{meme.authorPhoto}}" alt="avatar">
@@ -8,7 +9,7 @@
     <a routerLink="/meme/details/{{meme.id}}">
         <img mat-card-image src="{{meme.imageUrl}}" alt="{{meme.title}}">
     </a>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="user">
         <button *ngIf="!user.likes.includes(meme.id)" mat-button (click)="like(meme.id)">
             <mat-icon>thumb_up</mat-icon>
         </button>

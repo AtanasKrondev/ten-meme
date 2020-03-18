@@ -1,4 +1,3 @@
-<p *ngIf="!memes">Loading......</p>
-<div class="list-item" *ngFor="let meme of memes">
+<div class="list-item" *ngFor="let meme of memes$ | async">
     <app-card [meme]="meme" [user]="user"></app-card>
 </div>

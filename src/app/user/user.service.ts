@@ -4,24 +4,22 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { User } from '../shared/interfaces/user';
 import { Router } from '@angular/router';
 import { firestore } from 'firebase/app';
-import { map, flatMap } from 'rxjs/operators';
+import { map, flatMap, catchError, tap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  userCollection: AngularFirestoreCollection<User>;
-
+  userCollection: AngularFirestoreCollection<User> = this.afs.collection<User>('users');
   private _currentUser = null;
 
   get isLogged() { return !!this._currentUser }
-
   get currentUser() {
     if (this._currentUser) {
       const { uid, displayName, photoURL, email } = this._currentUser;
       return { uid, displayName, photoURL, email };
     }
-    else return null;
   }
 
   constructor(
@@ -29,13 +27,25 @@ export class UserService {
     private afs: AngularFirestore,
     private router: Router,
   ) {
-    this.userCollection = this.afs.collection<User>('users');
+    this.afAuth.authState
+      .subscribe((user) => {
+        this._currentUser = user;
+        console.log(this.currentUser);
+      }, () => console.log('Guest'))
   }
 
-  initializeAuthState() {
-    this.afAuth.auth.onAuthStateChanged((user) => {
-      if (user) { this._currentUser = user; console.log(this.currentUser); }
-    });
+  getUid() {
+    return this.afAuth.authState.pipe(
+      map(user => user.uid),
+      tap(a => console.log(a))
+    )
+  }
+
+  authState() {
+    return this.afAuth.authState.pipe(
+      flatMap((user) => this.getUser(user.uid)),
+      catchError(() => { console.log('Guest'); return of(null) })
+    );
   }
 
   register(email: string, password: string) {
@@ -126,7 +136,7 @@ export class UserService {
     }
   }
 
-  getUser(uid: string) {
+  getUser(uid?: string) {
     return this.userCollection.doc(uid).snapshotChanges().pipe(map(a => {
       const userData = a.payload.data() as User;
       return { ...userData };

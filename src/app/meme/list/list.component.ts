@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { MemeService } from '../meme.service';
 import { MemeId } from 'src/app/shared/interfaces/meme';
+import { User } from 'src/app/shared/interfaces/user';
 import { UserService } from 'src/app/user/user.service';
+import { flatMap, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -9,16 +12,12 @@ import { UserService } from 'src/app/user/user.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent {
-  memes: MemeId[];
-  uid: string = null;
-  user;
-  likes: string[];
-  favorites: string[];
+  memes$;
+  user: User;
 
   constructor(private memeService: MemeService,
     private userService: UserService) {
-    this.uid = this.userService.currentUser.uid;
-    this.memeService.memes.subscribe(memes => this.memes = memes);
-    this.userService.getUser(this.uid).subscribe(user => this.user = user);
+    this.userService.authState().subscribe(user => this.user = user);
+    this.memes$ = this.memeService.memes;
   }
 }

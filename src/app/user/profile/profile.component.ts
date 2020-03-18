@@ -11,7 +11,7 @@ import { Observable, combineLatest } from 'rxjs';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  uid: string;
+  uid = this.userService.getUid();
   uploads$;
   likes$;
   favorites$;
@@ -19,10 +19,9 @@ export class ProfileComponent {
 
   constructor(private userService: UserService,
     private memeService: MemeService) {
-    this.uid = this.userService.currentUser.uid;
-    this.uploads$ = this.memeService.getMemeListOfUser(this.uid, 'uploads');
-    this.likes$ = this.memeService.getMemeListOfUser(this.uid, 'likes');
-    this.favorites$ = this.memeService.getMemeListOfUser(this.uid, 'favorites');
-    this.userService.getUser(this.uid).subscribe(user => this.user = user);
+    this.uploads$ = this.uid.pipe(flatMap(uid => this.memeService.getMemeListOfUser(uid, 'uploads')));
+    this.likes$ = this.uid.pipe(flatMap(uid => this.memeService.getMemeListOfUser(uid, 'likes')));
+    this.favorites$ = this.uid.pipe(flatMap(uid => this.memeService.getMemeListOfUser(uid, 'favorites')));
+    this.userService.authState().subscribe(user => this.user = user);
   }
 }

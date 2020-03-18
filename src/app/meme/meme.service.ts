@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { map, flatMap, tap, take } from 'rxjs/operators';
+import { map, flatMap, tap, take, shareReplay } from 'rxjs/operators';
 import { Observable, combineLatest } from 'rxjs';
 import { Meme, MemeId } from '../shared/interfaces/meme';
 import { UserService } from '../user/user.service';
@@ -10,10 +10,8 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class MemeService {
-  memeCollection: AngularFirestoreCollection<Meme>;
-  // memes: Observable<MemeId[]>;
+  memeCollection: AngularFirestoreCollection<Meme>
   memes;
-
 
   constructor(private afs: AngularFirestore,
     private userService: UserService,
@@ -23,13 +21,13 @@ export class MemeService {
       ref.orderBy('createdAt', 'desc'));
     this.memes = this.memeCollection.snapshotChanges()
       .pipe(
-        take(1),
+        shareReplay(1),
         map(actions => actions.map(a => {
           const memeData = a.payload.doc.data() as Meme;
           const id = a.payload.doc.id;
           return { id, ...memeData }
         })),
-        tap(a => console.log(a))
+        tap(a => console.log(a)),
       );
   }
 

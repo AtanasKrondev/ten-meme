@@ -1,3 +1,4 @@
+<p *ngIf="!meme">Loading......</p>
 <div class="details-section" *ngIf="meme">
     <app-card [meme]="meme" [user]="user"></app-card>
     <mat-card>

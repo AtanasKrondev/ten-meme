@@ -37,14 +37,12 @@ export class AddMemeComponent {
     const input = event.input;
     const value = event.value;
     const tags = this.addMemeForm.get('tags');
-
     if (!tags.value.includes(value) && (value || '').trim()) {
       (tags as FormArray).push(new FormControl(value.toLowerCase()));
-    }
-
+    };
     if (input) {
       input.value = '';
-    }
+    };
   }
 
   removeTag(i: number): void {

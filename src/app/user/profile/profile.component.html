@@ -1,19 +1,19 @@
 <mat-tab-group mat-stretch-tabs color="accent">
-    <mat-tab label="Uploads">
+    <mat-tab label="Uploads ({{user?.uploads.length}})">
         <ng-template matTabContent>
             <div class="list-item" *ngFor="let meme of uploads$ | async">
                 <app-card [meme]="meme" [user]="user"></app-card>
             </div>
         </ng-template>
     </mat-tab>
-    <mat-tab label="Likes">
+    <mat-tab label="Likes ({{user?.likes.length}})">
         <ng-template matTabContent>
             <div class="list-item" *ngFor="let meme of likes$ | async">
                 <app-card [meme]="meme" [user]="user"></app-card>
             </div>
         </ng-template>
     </mat-tab>
-    <mat-tab label="Favorites">
+    <mat-tab label="Favorites ({{user?.favorites.length}})">
         <ng-template matTabContent>
             <div class="list-item" *ngFor="let meme of favorites$ | async">
                 <app-card [meme]="meme" [user]="user"></app-card>

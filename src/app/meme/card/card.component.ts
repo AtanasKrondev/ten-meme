@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MemeId } from 'src/app/shared/interfaces/meme';
 import { UserService } from 'src/app/user/user.service';
+import { User } from 'src/app/shared/interfaces/user';
 
 @Component({
   selector: 'app-card',
@@ -9,7 +10,7 @@ import { UserService } from 'src/app/user/user.service';
 })
 export class CardComponent {
   @Input() meme: MemeId;
-  @Input() user;
+  @Input() user: User;
 
   constructor(private userService: UserService) { }
 

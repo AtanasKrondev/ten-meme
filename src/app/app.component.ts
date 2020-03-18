@@ -12,8 +12,8 @@ export class AppComponent implements OnInit {
 
   constructor(private userService: UserService, private memeService: MemeService) {
   }
-
+  
   ngOnInit() {
-    this.userService.initializeAuthState();
+    // this.userService.initializeAuthState()
   }
 }
