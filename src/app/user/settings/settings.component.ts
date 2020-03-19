@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { UserService } from '../user.service';
-import { regex } from '../../core/validators/regex.validator'
-import { PasswordValidator } from 'src/app/core/validators/password.validator';
-import { AuthDialogComponent } from '../auth-dialog/auth-dialog.component';
+import { AuthService } from '../../auth/auth.service';
+import { regex } from '../../shared/validators/regex.validator'
+import { PasswordValidator } from 'src/app/shared/validators/password.validator';
+import { AuthDialogComponent } from '../../auth/auth-dialog/auth-dialog.component';
 
 @Component({
   selector: 'app-settings',
@@ -19,8 +19,10 @@ export class SettingsComponent {
   currentUser;
   authDialogRef: MatDialogRef<AuthDialogComponent>
 
-  constructor(private fb: FormBuilder, private userService: UserService, private dialog: MatDialog) {
-    this.currentUser = this.userService.currentUser;
+  constructor(private fb: FormBuilder,
+    private authService: AuthService,
+    private dialog: MatDialog) {
+    this.currentUser = this.authService.currentUser;
     this.displayNameForm = this.fb.group({
       displayName: [this.currentUser.displayName, Validators.required],
     })
@@ -40,15 +42,15 @@ export class SettingsComponent {
     this.authDialogRef = this.dialog.open(AuthDialogComponent);
     this.authDialogRef.afterClosed()
       .subscribe(({ confirmPassword }) => {
-        this.userService.handleAuthPrompt(confirmPassword,formValue);
+        this.authService.handleAuthPrompt(confirmPassword, formValue);
       });
   }
 
   displayNameHandler(displayName: Object) {
-    this.userService.updateDisplayName(displayName);
+    this.authService.updateDisplayName(displayName);
   }
 
   photoURLHandler(photoURL: Object) {
-    this.userService.updatePhotoURL(photoURL);
+    this.authService.updatePhotoURL(photoURL);
   }
 }

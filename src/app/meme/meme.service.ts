@@ -33,7 +33,7 @@ export class MemeService {
 
   addMeme(meme: Meme) {
     this.memeCollection.add(meme)
-      .then(({ id }) => this.userService.pushMeme(id, 'uploads'))
+      .then(({ id }) => this.userService.pushToIdArray(id, 'uploads'))
       .then(() => this.router.navigate(['']))
       .catch(err => console.log(err));
   }

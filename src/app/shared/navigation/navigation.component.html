@@ -14,7 +14,7 @@
       <a mat-list-item routerLink="/user/profile">
         <mat-icon>thumb_up</mat-icon> Most liked
       </a>
-      <a mat-list-item routerLink="/user/login">
+      <a mat-list-item routerLink="/auth/login">
         <mat-icon>visibility_off</mat-icon> NSFW
       </a>
     </mat-nav-list>
@@ -36,11 +36,11 @@
         Enter
       </button>
       <mat-menu #menu="matMenu">
-        <button *ngIf="!isLogged" mat-menu-item routerLink="/user/login">
+        <button *ngIf="!isLogged" mat-menu-item routerLink="/auth/login">
           <mat-icon>exit_to_app</mat-icon>
           <span>Login</span>
         </button>
-        <button *ngIf="!isLogged" mat-menu-item routerLink="/user/register">
+        <button *ngIf="!isLogged" mat-menu-item routerLink="/auth/register">
           <mat-icon>person_add</mat-icon>
           <span>Register</span>
         </button>

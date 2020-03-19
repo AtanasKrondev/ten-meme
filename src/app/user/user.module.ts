@@ -4,23 +4,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from '../material.module';
 import { UserRoutingModule } from './user-routing.module';
+import { AuthModule } from '../auth/auth.module';
 import { MemeModule } from '../meme/meme.module';
+import { CommentModule } from '../comment/comment.module';
 
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
-import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, ProfileComponent, SettingsComponent, AuthDialogComponent],
+  declarations: [ProfileComponent, SettingsComponent,],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
     UserRoutingModule,
+    AuthModule,
     MemeModule,
-  ],
-  entryComponents: [AuthDialogComponent]
+    CommentModule,
+  ]
 })
 export class UserModule { }

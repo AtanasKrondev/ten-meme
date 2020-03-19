@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { UserService } from '../user.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { MemeService } from 'src/app/meme/meme.service';
-import { MemeId } from 'src/app/shared/interfaces/meme';
-import { map, flatMap, tap } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
+import { CommentService } from 'src/app/comment/comment.service';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -11,17 +11,22 @@ import { Observable, combineLatest } from 'rxjs';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  uid = this.userService.getUid();
+  uid = this.authService.getUid();
   uploads$;
   likes$;
   favorites$;
+  comments$;
   user;
 
-  constructor(private userService: UserService,
-    private memeService: MemeService) {
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private memeService: MemeService,
+    private commentService: CommentService) {
     this.uploads$ = this.uid.pipe(flatMap(uid => this.memeService.getMemeListOfUser(uid, 'uploads')));
     this.likes$ = this.uid.pipe(flatMap(uid => this.memeService.getMemeListOfUser(uid, 'likes')));
     this.favorites$ = this.uid.pipe(flatMap(uid => this.memeService.getMemeListOfUser(uid, 'favorites')));
+    this.comments$ = this.uid.pipe(flatMap(uid => this.commentService.getCommentListOfUser(uid)));
     this.userService.authState().subscribe(user => this.user = user);
   }
 }

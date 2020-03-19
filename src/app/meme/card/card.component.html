@@ -3,7 +3,7 @@
     <mat-card-header>
         <img mat-card-avatar src="{{meme.authorPhoto}}" alt="avatar">
         <mat-card-title>{{meme.title}}</mat-card-title>
-        <mat-card-subtitle>By: {{meme.authorName}} at {{meme.createdAt?.toDate() | date:'dd MMM yyyy, HH:mm'}}
+        <mat-card-subtitle>By {{meme.authorName}} at {{meme.createdAt?.toDate() | date:'dd MMM yyyy, HH:mm'}}
         </mat-card-subtitle>
     </mat-card-header>
     <a routerLink="/meme/details/{{meme.id}}">

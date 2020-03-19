@@ -4,7 +4,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { UserService } from '../../user/user.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -19,18 +19,18 @@ export class NavigationComponent {
       shareReplay()
     );
 
-  get isLogged() { return this.userService.isLogged }
-  get currentUser() { return this.userService.currentUser }
+  get isLogged() { return this.authService.isLogged }
+  get currentUser() { return this.authService.currentUser }
   likes;
   favorites;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router,
   ) { }
 
   logout() {
-    this.userService.logout();
+    this.authService.logout();
   }
 }

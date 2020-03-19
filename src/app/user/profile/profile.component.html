@@ -20,4 +20,14 @@
             </div>
         </ng-template>
     </mat-tab>
+    <mat-tab label="Comments ({{user?.comments.length}})">
+        <ng-template matTabContent>
+            <p>Click on a comment to see the coresponding meme</p>
+            <div class="list-item" *ngFor="let comment of comments$ | async">
+                <a routerLink="/meme/details/{{comment.memeId}}">
+                    <app-comment-card [comment]="comment"></app-comment-card>
+                </a>
+            </div>
+        </ng-template>
+    </mat-tab>
 </mat-tab-group>

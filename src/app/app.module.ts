@@ -15,6 +15,7 @@ import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { AuthModule } from './auth/auth.module';
 import { MemeModule } from './meme/meme.module';
 import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
@@ -36,6 +37,7 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     LayoutModule,
     MaterialModule,
+    AuthModule,
     UserModule,
     MemeModule,
     CommentModule,

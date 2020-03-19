@@ -4,8 +4,8 @@ import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { firestore } from 'firebase/app';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MemeService } from '../meme.service';
-import { regex } from '../../core/validators/regex.validator';
-import { UserService } from 'src/app/user/user.service';
+import { regex } from '../../shared/validators/regex.validator';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-add-meme',
@@ -23,8 +23,8 @@ export class AddMemeComponent {
 
   constructor(private fb: FormBuilder,
     private memeService: MemeService,
-    private userService: UserService) {
-    this.currentUser = this.userService.currentUser;
+    private authService: AuthService) {
+    this.currentUser = this.authService.currentUser;
     this.addMemeForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(140)]],
       imageUrl: ['', [Validators.required, Validators.pattern(regex.imageUrl)]],

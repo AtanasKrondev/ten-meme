@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { firestore } from 'firebase/app';
+import { CommentService } from '../comment.service';
+import { MemeId } from 'src/app/shared/interfaces/meme';
+import { User } from 'src/app/shared/interfaces/user';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-comment-form',
@@ -8,15 +12,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./comment-form.component.scss']
 })
 export class CommentFormComponent {
+  @Input() meme: MemeId;
   commentForm: FormGroup;
+  user;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private commentService: CommentService,
+    private authService: AuthService) {
+    this.user = this.authService.currentUser;
     this.commentForm = this.fb.group({
-      comment: ['', [Validators.required, Validators.minLength(5)]],
+      comment: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(280)]],
     })
   }
 
   commentHandler({ comment }: { comment: string, }) {
-    console.log(comment);
+    this.commentService.addComment({
+      comment,
+      memeId: this.meme.id,
+      authorId: this.user.uid,
+      authorName: this.user.displayName,
+      authorPhoto: this.user.photoURL,
+      createdAt: firestore.FieldValue.serverTimestamp()
+    });
+    this.commentForm.reset();
   }
 }

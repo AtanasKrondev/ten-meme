@@ -15,18 +15,18 @@ export class CardComponent {
   constructor(private userService: UserService) { }
 
   like(id: string) {
-    this.userService.pushMeme(id, 'likes');
+    this.userService.pushToIdArray(id, 'likes');
   }
 
   unLike(id: string) {
-    this.userService.removeMeme(id, 'likes');
+    this.userService.removeFromIdArray(id, 'likes');
   }
 
   favorite(id: string) {
-    this.userService.pushMeme(id, 'favorites');
+    this.userService.pushToIdArray(id, 'favorites');
   }
 
   unFavorite(id: string) {
-    this.userService.removeMeme(id, 'favorites');
+    this.userService.removeFromIdArray(id, 'favorites');
   }
 }
