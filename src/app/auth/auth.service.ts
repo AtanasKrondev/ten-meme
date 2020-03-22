@@ -31,14 +31,14 @@ export class AuthService {
     this.afAuth.authState
       .subscribe((user) => {
         this._currentUser = user;
-        console.log(this.currentUser);
+        // console.log(this.currentUser);
       }, () => console.log('Guest'))
   }
 
   getUid(): Observable<string> {
     return this.afAuth.authState.pipe(
       map(user => user.uid),
-      tap(a => console.log(a))
+      // tap(a => console.log(a))
     )
   }
 

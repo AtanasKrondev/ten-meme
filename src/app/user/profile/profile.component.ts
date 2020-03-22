@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { MemeService } from 'src/app/meme/meme.service';
 import { CommentService } from 'src/app/comment/comment.service';
 import { flatMap } from 'rxjs/operators';
-import { UserUid } from 'src/app/shared/interfaces/user';
+import { User } from 'src/app/shared/interfaces/user';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +17,7 @@ export class ProfileComponent {
   likes$;
   favorites$;
   comments$;
-  user: UserUid;
+  user: User;
 
   constructor(
     private userService: UserService,

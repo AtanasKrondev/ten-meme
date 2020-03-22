@@ -38,9 +38,9 @@ export class CommentService {
           const id = a.payload.doc.id;
           return { id, ...commentData }
         })),
-        tap(a => console.log(a)),
+        // tap(a => console.log(a)),
         map(comments => comments.filter(comment => comment.memeId === memeId)),
-        tap(a => console.log(a)),
+        // tap(a => console.log(a)),
       );
   }
 
@@ -59,7 +59,7 @@ export class CommentService {
       .pipe(
         map(a => a.comments.map((id: string) => this.getCommentById(id))),
         flatMap(observables => combineLatest(observables)),
-        tap(a => console.log(a))
+        // tap(a => console.log(a))
       )
   }
 }

@@ -25,7 +25,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span routerLink="">10MEME</span>
+      <img class="logo" routerLink="" src="../../assets/logo.png" alt="10MEME">
       <span class="spacer"></span>
       <button *ngIf="currentUser" mat-button [matMenuTriggerFor]="menu">
         <span>{{currentUser?.displayName}} </span>

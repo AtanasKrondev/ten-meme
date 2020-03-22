@@ -1,11 +1,12 @@
 <mat-card class="comment-form-card">
     <mat-card-header>
-        <img mat-card-avatar src="{{user.photoURL}}" alt="avatar">
+        <img *ngIf="user.photoURL" mat-card-avatar src="{{user.photoURL}}" alt="user">
+        <img *ngIf="!user.photoURL" mat-card-avatar src="../../assets/user.png" alt="user">
         <form class="comment-form" [formGroup]="commentForm" (ngSubmit)="commentHandler(commentForm.value)">
             <mat-form-field class="comment-input">
                 <mat-label>Leave a comment</mat-label>
-                <textarea matInput minlength="5" maxlength="280" placeholder="Ex. It makes me feel..." formControlName="comment"
-                    id="comment"></textarea>
+                <textarea matInput minlength="5" maxlength="280" placeholder="Ex. It makes me feel..."
+                    formControlName="comment" id="comment"></textarea>
             </mat-form-field>
             <mat-error *ngIf="commentForm.get('comment').invalid && commentForm.get('comment').touched">
                 Your comment must be between 5 and 280 characters long!

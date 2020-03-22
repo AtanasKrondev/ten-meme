@@ -32,7 +32,7 @@ export class MemeService {
           const id = a.payload.doc.id;
           return { id, ...memeData }
         })),
-        tap(a => console.log(a)),
+        // tap(a => console.log(a)),
       );
   }
 
@@ -61,7 +61,7 @@ export class MemeService {
       .pipe(
         map(a => a[list].map((id: string) => this.getMemeById(id))),
         flatMap(observables => combineLatest(observables)),
-        tap(a => console.log(a))
+        // tap(a => console.log(a))
       )
   }
 

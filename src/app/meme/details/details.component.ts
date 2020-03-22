@@ -27,7 +27,7 @@ export class DetailsComponent {
     private commentService: CommentService) {
     this.memeService.getMemeById(this.id).subscribe(meme => {
       this.meme = meme;
-      console.log(this.meme);
+      // console.log(this.meme);
     });
     this.userService.authState().subscribe(user => this.user = user);
     this.comments$ = this.commentService.getComments(this.id);

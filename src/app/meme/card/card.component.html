@@ -10,7 +10,7 @@
         <mat-card-subtitle>By {{meme.authorName}} at {{meme.createdAt?.toDate() | date:'dd MMM yyyy, HH:mm'}}
         </mat-card-subtitle>
     </mat-card-header>
-    <a routerLink="/meme/details/{{meme.id}}">comment-c
+    <a routerLink="/meme/details/{{meme.id}}">
         <img mat-card-image [ngStyle]="meme.nsfw && !user?.showNsfw && {'filter':'blur(20px)'}" src="{{meme.imageUrl}}"
             alt="{{meme.title}}">
     </a>
@@ -21,7 +21,7 @@
         <button *ngIf="user.likes.includes(meme.id)" mat-button (click)="unLike(meme.id)">
             <mat-icon color="primary">thumb_up</mat-icon><span> {{meme.likes}}</span>
         </button>
-        <button mat-button [routerLink]="['meme', 'details', meme.id]" fragment="comment-field">
+        <button mat-button routerLink="/meme/details/{{meme.id}}" fragment="comment-field">
             <mat-icon>comment</mat-icon>
         </button>
         <button *ngIf="!user.favorites.includes(meme.id)" mat-button (click)="favorite(meme.id)">

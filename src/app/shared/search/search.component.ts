@@ -17,9 +17,7 @@ export class SearchComponent {
   }
 
   searchHandler({ search }: { search: string, }) {
-    console.log(search)
     this.router.navigate(['meme', 'search', search]);
     this.searchForm.reset();
   }
-
 }

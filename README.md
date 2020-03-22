@@ -1,3 +1,20 @@
+10MEME
+
+See it in action at: https://ten-meme.firebaseapp.com
+
+This is a simple app for viewing and uploanding memes/images.
+
+The front-end is built with Angular, using Angular Material for styling.
+Firestore Cloud Storage is used for the back-end.
+
+Non-authenticated users can view the collection and search for specific tags.
+Once register users can do also the following:
+- View posts marked as sensitive content;
+- Like, favorite, comment posts;
+- View own collections of uploads, comments, likes, favorites;
+- Change preferences: display name, profile photo, login email, password (latest two need reauthentication)
+
+
 # TenMeme
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.22.
