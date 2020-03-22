@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -9,14 +10,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SearchComponent {
   searchForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.searchForm = this.fb.group({
-      search: ['', [Validators.required]],
+      search: ['', [Validators.required, Validators.minLength(1)]],
     })
   }
 
   searchHandler({ search }: { search: string, }) {
-    console.log(search);
+    console.log(search)
+    this.router.navigate(['meme', 'search', search]);
+    this.searchForm.reset();
   }
 
 }

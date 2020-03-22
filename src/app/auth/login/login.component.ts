@@ -20,7 +20,7 @@ export class LoginComponent {
     })
   }
 
-  loginHandler({ email, password }: { email: string, password: string }) {
+  loginHandler({ email, password }: { email: string, password: string }): void {
     this.authService.login(email, password);
   }
 }

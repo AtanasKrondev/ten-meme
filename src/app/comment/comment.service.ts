@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
-import { map, flatMap, tap, take, shareReplay, filter } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
-import { Comment, CommentId } from '../shared/interfaces/comment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { map, flatMap, tap, shareReplay } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { Comment } from '../shared/interfaces/comment';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -12,14 +12,19 @@ import { UserService } from '../user/user.service';
 export class CommentService {
   commentCollection: AngularFirestoreCollection<Comment>
 
-  constructor(private router: Router, private userService: UserService, private afs: AngularFirestore, ) { 
+  constructor(private userService: UserService,
+    private afs: AngularFirestore,
+    private snackBar: MatSnackBar) {
     this.commentCollection = this.afs.collection<Comment>('comments');
   }
 
-  addComment(comment: Comment) {
+  addComment(comment: Comment): void {
     this.commentCollection.add(comment)
       .then(({ id }) => this.userService.pushToIdArray(id, 'comments'))
-      .catch(err => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        this.snackBar.open(err.message, '', { duration: 4000 });
+      });
   }
 
   getComments(memeId: string) {

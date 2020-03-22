@@ -5,6 +5,9 @@ import { AuthService } from '../../auth/auth.service';
 import { regex } from '../../shared/validators/regex.validator'
 import { PasswordValidator } from 'src/app/shared/validators/password.validator';
 import { AuthDialogComponent } from '../../auth/auth-dialog/auth-dialog.component';
+import { flatMap } from 'rxjs/operators';
+import { UserService } from '../user.service';
+import { UserUid } from 'src/app/shared/interfaces/user';
 
 @Component({
   selector: 'app-settings',
@@ -12,16 +15,22 @@ import { AuthDialogComponent } from '../../auth/auth-dialog/auth-dialog.componen
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent {
+  uid = this.authService.getUid();
   displayNameForm: FormGroup;
   photoURLForm: FormGroup;
   emailForm: FormGroup;
   passwordForm: FormGroup;
-  currentUser;
-  authDialogRef: MatDialogRef<AuthDialogComponent>
+  authDialogRef: MatDialogRef<AuthDialogComponent>;
+  uploads$;
+  showNsfw: Boolean;
+  currentUser: UserUid;
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private dialog: MatDialog) {
+    this.uid.pipe(flatMap(uid => this.userService.getUser(uid)))
+      .subscribe(user => this.showNsfw = user.showNsfw)
     this.currentUser = this.authService.currentUser;
     this.displayNameForm = this.fb.group({
       displayName: [this.currentUser.displayName, Validators.required],
@@ -38,7 +47,7 @@ export class SettingsComponent {
     }, { validator: PasswordValidator.MatchPassword })
   }
 
-  openAuthDialog(formValue) {
+  openAuthDialog(formValue): void {
     this.authDialogRef = this.dialog.open(AuthDialogComponent);
     this.authDialogRef.afterClosed()
       .subscribe(({ confirmPassword }) => {
@@ -46,11 +55,16 @@ export class SettingsComponent {
       });
   }
 
-  displayNameHandler(displayName: Object) {
+  displayNameHandler(displayName: Object): void {
     this.authService.updateDisplayName(displayName);
   }
 
-  photoURLHandler(photoURL: Object) {
+  photoURLHandler(photoURL: Object): void {
     this.authService.updatePhotoURL(photoURL);
+  }
+
+  changeNsfw(): void {
+    this.showNsfw = !this.showNsfw;
+    this.userService.updateUser({ showNsfw: this.showNsfw })
   }
 }

@@ -6,6 +6,7 @@ import { MemeService } from '../meme.service';
 import { UserService } from 'src/app/user/user.service';
 import { CommentService } from 'src/app/comment/comment.service';
 import { User } from 'src/app/shared/interfaces/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -13,14 +14,14 @@ import { User } from 'src/app/shared/interfaces/user';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent {
-  id: string = this.activatedRoute.snapshot.params.id;
+  id: string = this.route.snapshot.params.id;
   user: User;
   meme;
   comments$;
 
   constructor(
     private _location: Location,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private memeService: MemeService,
     private userService: UserService,
     private commentService: CommentService) {
@@ -32,7 +33,7 @@ export class DetailsComponent {
     this.comments$ = this.commentService.getComments(this.id);
   }
 
-  goBack() {
+  goBack(): void {
     this._location.back();
   }
 }

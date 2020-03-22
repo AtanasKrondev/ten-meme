@@ -11,7 +11,6 @@ import { AuthService } from '../auth.service';
 export class RegisterComponent {
   registerForm: FormGroup;
 
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -23,7 +22,7 @@ export class RegisterComponent {
     }, { validator: PasswordValidator.MatchPassword })
   }
 
-  registerHandler({ email, password }: { email: string, password: string }) {
+  registerHandler({ email, password }: { email: string, password: string }): void {
     this.authService.register(email, password);
   }
 }

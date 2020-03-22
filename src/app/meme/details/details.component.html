@@ -1,11 +1,12 @@
-<p *ngIf="!meme">Loading......</p>
+<mat-spinner *ngIf="!meme" color="accent"></mat-spinner>
+
 <div class="details-section" *ngIf="meme">
     <app-card [meme]="meme" [user]="user"></app-card>
     <mat-card>
         <mat-card-content>
             <mat-chip-list>
                 Tags:
-                <mat-chip *ngFor="let tag of meme.tags">{{tag}}</mat-chip>
+                <mat-chip *ngFor="let tag of meme.tags" routerLink="/meme/search/{{tag}}">{{tag}}</mat-chip>
             </mat-chip-list>
         </mat-card-content>
         <mat-card-actions>
@@ -19,7 +20,7 @@
     </mat-card>
 </div>
 <div *ngIf="user" class="details-section">
-    <app-comment-form [meme]="meme"></app-comment-form>
+    <app-comment-form [meme]="meme" id="comment-field"></app-comment-form>
 </div>
 <div class="details-section" *ngFor="let comment of comments$ | async">
     <app-comment-card [comment]="comment"></app-comment-card>

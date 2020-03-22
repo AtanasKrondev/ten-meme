@@ -1,16 +1,7 @@
-<!-- <form formGroup="search" novalidate>
-      <mat-form-field class="example-full-width">
-        <mat-label>
-          <mat-icon>search</mat-icon> Search
-        </mat-label>
-        <input matInput>
-      </mat-form-field>
-    </form> -->
-
 <form [formGroup]="searchForm" (ngSubmit)="searchHandler(searchForm.value)" class="search-form">
     <mat-form-field class="search-input">
         <input matInput type="text" formControlName="search" placeholder="Search" id="search">
-        <button mat-icon-button matSuffix type="submit" [disabled]="searchForm.invalid">
+        <button mat-icon-button matSuffix type="submit">
             <mat-icon>search</mat-icon>
         </button>
     </mat-form-field>

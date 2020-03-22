@@ -1,25 +1,27 @@
-<p *ngIf="!meme">Loading......</p>
+<mat-spinner *ngIf="!meme" color="accent"></mat-spinner>
+
 <mat-card class="meme-card">
     <mat-card-header>
-        <img mat-card-avatar src="{{meme.authorPhoto}}" alt="avatar">
-        <mat-card-title>{{meme.title}}</mat-card-title>
+        <img *ngIf="meme.authorPhoto" mat-card-avatar src="{{meme.authorPhoto}}" alt="user">
+        <img *ngIf="!meme.authorPhoto" mat-card-avatar src="../../assets/user.png" alt="user">
+        <mat-card-title>
+            <mat-icon *ngIf="meme.nsfw" color="warn">whatshot</mat-icon> {{meme.title}}
+        </mat-card-title>
         <mat-card-subtitle>By {{meme.authorName}} at {{meme.createdAt?.toDate() | date:'dd MMM yyyy, HH:mm'}}
         </mat-card-subtitle>
     </mat-card-header>
-    <a routerLink="/meme/details/{{meme.id}}">
-        <img mat-card-image src="{{meme.imageUrl}}" alt="{{meme.title}}">
+    <a routerLink="/meme/details/{{meme.id}}">comment-c
+        <img mat-card-image [ngStyle]="meme.nsfw && !user?.showNsfw && {'filter':'blur(20px)'}" src="{{meme.imageUrl}}"
+            alt="{{meme.title}}">
     </a>
     <mat-card-actions *ngIf="user">
         <button *ngIf="!user.likes.includes(meme.id)" mat-button (click)="like(meme.id)">
-            <mat-icon>thumb_up</mat-icon>
+            <mat-icon>thumb_up</mat-icon><span> {{meme.likes}}</span>
         </button>
         <button *ngIf="user.likes.includes(meme.id)" mat-button (click)="unLike(meme.id)">
-            <mat-icon color="primary">thumb_up</mat-icon>
+            <mat-icon color="primary">thumb_up</mat-icon><span> {{meme.likes}}</span>
         </button>
-        <!-- <button mat-button>
-            <mat-icon>thumb_down</mat-icon>
-        </button> -->
-        <button mat-button>
+        <button mat-button [routerLink]="['meme', 'details', meme.id]" fragment="comment-field">
             <mat-icon>comment</mat-icon>
         </button>
         <button *ngIf="!user.favorites.includes(meme.id)" mat-button (click)="favorite(meme.id)">

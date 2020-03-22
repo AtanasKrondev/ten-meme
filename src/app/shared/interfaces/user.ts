@@ -7,3 +7,10 @@ export interface User {
     comments: string[],
     showNsfw: Boolean,
 }
+
+export interface UserUid {
+    uid: string,
+    email: string,
+    displayName: string,
+    photoURL: string,
+}

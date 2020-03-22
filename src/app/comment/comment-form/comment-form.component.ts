@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { firestore } from 'firebase/app';
 import { CommentService } from '../comment.service';
 import { MemeId } from 'src/app/shared/interfaces/meme';
-import { User } from 'src/app/shared/interfaces/user';
+import { UserUid } from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class CommentFormComponent {
   @Input() meme: MemeId;
   commentForm: FormGroup;
-  user;
+  user: UserUid;
 
   constructor(private fb: FormBuilder,
     private commentService: CommentService,

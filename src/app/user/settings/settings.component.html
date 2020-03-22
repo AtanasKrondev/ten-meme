@@ -96,4 +96,15 @@
       </button>
     </form>
   </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Show NSFW</mat-panel-title>
+      <mat-panel-description>
+        Show/hide sensitive content
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-slide-toggle [checked]="showNsfw" (change)="changeNsfw()">
+      Show sensitive content
+    </mat-slide-toggle>
+  </mat-expansion-panel>
 </mat-accordion>

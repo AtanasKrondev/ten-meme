@@ -9,6 +9,7 @@ export interface Meme {
     authorName: string,
     authorPhoto: string,
     createdAt: firestore.FieldValue,
+    likes: number,
 }
 
 export interface MemeId {
@@ -20,5 +21,6 @@ export interface MemeId {
     authorName: string,
     authorPhoto: string,
     createdAt: firestore.Timestamp,
+    likes: number,
     id: string,
 };

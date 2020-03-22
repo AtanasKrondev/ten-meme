@@ -9,6 +9,10 @@ import { CardComponent } from './card/card.component';
 import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
 import { AddMemeComponent } from './add/add.component';
+import { SearchComponent } from './search/search.component';
+import { RecentComponent } from './recent/recent.component';
+import { MostLikedComponent } from './most-liked/most-liked.component';
+import { NsfwComponent } from './nsfw/nsfw.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +20,10 @@ import { AddMemeComponent } from './add/add.component';
     ListComponent,
     DetailsComponent,
     AddMemeComponent,
+    SearchComponent,
+    RecentComponent,
+    MostLikedComponent,
+    NsfwComponent,
   ],
   imports: [
     CommonModule,

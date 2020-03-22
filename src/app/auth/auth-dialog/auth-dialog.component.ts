@@ -16,7 +16,7 @@ export class AuthDialogComponent {
     })
   }
 
-  authHandler(value) {
+  authHandler(value): void {
     this.dialogRef.close(value);
   }
 }

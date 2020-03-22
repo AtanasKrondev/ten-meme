@@ -6,6 +6,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MemeService } from '../meme.service';
 import { regex } from '../../shared/validators/regex.validator';
 import { AuthService } from 'src/app/auth/auth.service';
+import { UserUid } from 'src/app/shared/interfaces/user';
 
 @Component({
   selector: 'app-add-meme',
@@ -18,7 +19,7 @@ export class AddMemeComponent {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
-  currentUser;
+  currentUser: UserUid;
   addMemeForm: FormGroup;
 
   constructor(private fb: FormBuilder,
@@ -49,7 +50,7 @@ export class AddMemeComponent {
     (this.addMemeForm.get('tags') as FormArray).removeAt(i);
   }
 
-  addMemeHandler({ title, imageUrl, nsfw, tags }: { title: string, imageUrl: string, nsfw: boolean, tags: string[] }) {
+  addMemeHandler({ title, imageUrl, nsfw, tags }: { title: string, imageUrl: string, nsfw: boolean, tags: string[] }): void {
     this.memeService.addMeme({
       title,
       imageUrl,
@@ -58,7 +59,8 @@ export class AddMemeComponent {
       authorId: this.currentUser.uid,
       authorName: this.currentUser.displayName,
       authorPhoto: this.currentUser.photoURL,
-      createdAt: firestore.FieldValue.serverTimestamp()
+      createdAt: firestore.FieldValue.serverTimestamp(),
+      likes: 0,
     });
   }
 }

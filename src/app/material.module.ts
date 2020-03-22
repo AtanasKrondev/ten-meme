@@ -19,6 +19,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -41,6 +44,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTabsModule,
     MatExpansionModule,
     MatDialogModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatGridListModule,
@@ -62,6 +68,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTabsModule,
     MatExpansionModule,
     MatDialogModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
   ]
 })
 export class MaterialModule { }

@@ -1,33 +1,33 @@
 <mat-tab-group mat-stretch-tabs color="accent">
     <mat-tab label="Uploads ({{user?.uploads.length}})">
         <ng-template matTabContent>
-            <div class="list-item" *ngFor="let meme of uploads$ | async">
-                <app-card [meme]="meme" [user]="user"></app-card>
-            </div>
+            <app-list *ngIf="user.uploads.length" [memes$]="uploads$"></app-list>
+            <p *ngIf="!user.uploads.length">Nothing to show here yet</p>
         </ng-template>
     </mat-tab>
     <mat-tab label="Likes ({{user?.likes.length}})">
         <ng-template matTabContent>
-            <div class="list-item" *ngFor="let meme of likes$ | async">
-                <app-card [meme]="meme" [user]="user"></app-card>
-            </div>
+            <app-list *ngIf="user.likes.length" [memes$]="likes$"></app-list>
+            <p *ngIf="!user.likes.length">Nothing to show here yet</p>
         </ng-template>
     </mat-tab>
     <mat-tab label="Favorites ({{user?.favorites.length}})">
         <ng-template matTabContent>
-            <div class="list-item" *ngFor="let meme of favorites$ | async">
-                <app-card [meme]="meme" [user]="user"></app-card>
-            </div>
+            <app-list *ngIf="user.favorites.length" [memes$]="favorites$"></app-list>
+            <p *ngIf="!user.favorites.length">Nothing to show here yet</p>
         </ng-template>
     </mat-tab>
     <mat-tab label="Comments ({{user?.comments.length}})">
         <ng-template matTabContent>
-            <p>Click on a comment to see the coresponding meme</p>
-            <div class="list-item" *ngFor="let comment of comments$ | async">
-                <a routerLink="/meme/details/{{comment.memeId}}">
-                    <app-comment-card [comment]="comment"></app-comment-card>
-                </a>
+            <div *ngIf="user.comments.length">
+                <p>* Click on a comment to see the coresponding meme</p>
+                <div class="list-item" *ngFor="let comment of comments$ | async">
+                    <a routerLink="/meme/details/{{comment.memeId}}">
+                        <app-comment-card [comment]="comment"></app-comment-card>
+                    </a>
+                </div>
             </div>
+            <p *ngIf="!user.comments.length">Nothing to show here yet</p>
         </ng-template>
     </mat-tab>
 </mat-tab-group>

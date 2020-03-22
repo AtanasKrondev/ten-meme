@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -21,13 +20,10 @@ export class NavigationComponent {
 
   get isLogged() { return this.authService.isLogged }
   get currentUser() { return this.authService.currentUser }
-  likes;
-  favorites;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
-    private router: Router,
   ) { }
 
   logout() {

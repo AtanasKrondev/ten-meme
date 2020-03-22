@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AngularFirestore, AngularFirestoreCollection, QueryFn } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { map, flatMap, tap, take, shareReplay } from 'rxjs/operators';
-import { Observable, combineLatest } from 'rxjs';
-import { Meme, MemeId } from '../shared/interfaces/meme';
+import { firestore } from 'firebase/app';
+import { map, flatMap, tap, shareReplay } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { Meme } from '../shared/interfaces/meme';
 import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemeService {
-  memeCollection: AngularFirestoreCollection<Meme>
-  memes;
+  memeCollection: AngularFirestoreCollection<Meme>;
 
   constructor(private afs: AngularFirestore,
     private userService: UserService,
     private router: Router,
+    private snackBar: MatSnackBar,
   ) {
-    this.memeCollection = this.afs.collection<Meme>('memes', ref =>
-      ref.orderBy('createdAt', 'desc'));
-    this.memes = this.memeCollection.snapshotChanges()
+    this.memeCollection = this.afs.collection<Meme>('memes');
+  }
+
+  getMemes(queryFn: QueryFn) {
+    return this.afs.collection<Meme>('memes', queryFn)
+      .snapshotChanges()
       .pipe(
         shareReplay(1),
         map(actions => actions.map(a => {
@@ -31,11 +36,14 @@ export class MemeService {
       );
   }
 
-  addMeme(meme: Meme) {
+  addMeme(meme: Meme): void {
     this.memeCollection.add(meme)
       .then(({ id }) => this.userService.pushToIdArray(id, 'uploads'))
       .then(() => this.router.navigate(['']))
-      .catch(err => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        this.snackBar.open(err.message, '', { duration: 4000 });
+      });
   }
 
   getMemeById(id: string) {
@@ -55,5 +63,23 @@ export class MemeService {
         flatMap(observables => combineLatest(observables)),
         tap(a => console.log(a))
       )
+  }
+
+  like(id: string): void {
+    this.memeCollection.doc(id)
+      .set({ likes: firestore.FieldValue.increment(1) }, { merge: true })
+      .catch((err) => {
+        console.log(err);
+        this.snackBar.open(err.message, '', { duration: 4000 });
+      });
+  }
+
+  unLike(id: string): void {
+    this.memeCollection.doc(id)
+      .set({ likes: firestore.FieldValue.increment(-1) }, { merge: true })
+      .catch((err) => {
+        console.log(err);
+        this.snackBar.open(err.message, '', { duration: 4000 });
+      });
   }
 }
