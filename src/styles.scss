@@ -13,6 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $ten-meme-primary: mat-palette($mat-blue);
+// $ten-meme-accent: mat-palette($mat-red, A200, A100, A400);
 $ten-meme-accent: mat-palette($mat-red, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).

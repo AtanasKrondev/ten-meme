@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MemeService } from '../meme.service';
+import { filter } from 'rxjs/operators'
 
 @Component({
   selector: 'app-search',
@@ -8,10 +9,16 @@ import { MemeService } from '../meme.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  search: string = this.route.snapshot.params.search;
+  search: string;
   memes$;
 
   constructor(private memeService: MemeService, private route: ActivatedRoute) {
-    this.memes$ = this.memeService.getMemes(ref => ref.where('tags', 'array-contains', this.search));
+    this.route.queryParams
+      .pipe(
+        filter(params => params.search)
+      ).subscribe(params => {
+        this.search = params.search;
+        this.memes$ = this.memeService.getMemes(ref => ref.where('tags', 'array-contains', this.search));
+      });
   }
 }

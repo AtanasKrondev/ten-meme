@@ -42,7 +42,7 @@ const routes: Routes = [
                 component: DetailsComponent,
             },
             {
-                path: 'search/:search',
+                path: 'search',
                 component: SearchComponent,
             },
         ]

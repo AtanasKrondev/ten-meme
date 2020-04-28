@@ -36,11 +36,14 @@ export class AddMemeComponent {
 
   addTag(event: MatChipInputEvent): void {
     const input = event.input;
-    const value = event.value;
-    const tags = this.addMemeForm.get('tags');
-    if (!tags.value.includes(value) && (value || '').trim()) {
-      (tags as FormArray).push(new FormControl(value.toLowerCase()));
-    };
+    const value = event.value.toLowerCase();
+    const isValid = regex.tag.test(value)
+    if (isValid) {
+      const tags = this.addMemeForm.get('tags');
+      if (!tags.value.includes(value) && (value || '').trim()) {
+        (tags as FormArray).push(new FormControl(value.toLowerCase()));
+      };
+    }
     if (input) {
       input.value = '';
     };
