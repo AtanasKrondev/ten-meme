@@ -5,8 +5,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../shared/interfaces/user';
 import { Router } from '@angular/router';
-import { map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,7 @@ export class AuthService {
   getUid(): Observable<string> {
     return this.afAuth.authState.pipe(
       map(user => user.uid),
+      catchError(() => { console.log('Guest'); return of(null) }),
       // tap(a => console.log(a))
     )
   }

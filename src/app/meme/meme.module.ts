@@ -13,6 +13,8 @@ import { SearchComponent } from './search/search.component';
 import { RecentComponent } from './recent/recent.component';
 import { MostLikedComponent } from './most-liked/most-liked.component';
 import { NsfwComponent } from './nsfw/nsfw.component';
+import { EditComponent } from './edit/edit.component';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { NsfwComponent } from './nsfw/nsfw.component';
     RecentComponent,
     MostLikedComponent,
     NsfwComponent,
+    EditComponent,
+    DeleteDialogComponent,
   ],
+  entryComponents: [DeleteDialogComponent],
   imports: [
     CommonModule,
     MaterialModule,

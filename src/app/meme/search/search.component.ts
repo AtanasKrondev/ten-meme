@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MemeService } from '../meme.service';
-import { filter } from 'rxjs/operators'
+import { filter, flatMap, tap, map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-search',
@@ -10,15 +10,14 @@ import { filter } from 'rxjs/operators'
 })
 export class SearchComponent {
   search: string;
+  searchQuery = this.route.queryParams
+    .pipe(
+      map(params => params.search),
+    )
   memes$;
 
   constructor(private memeService: MemeService, private route: ActivatedRoute) {
-    this.route.queryParams
-      .pipe(
-        filter(params => params.search)
-      ).subscribe(params => {
-        this.search = params.search;
-        this.memes$ = this.memeService.getMemes(ref => ref.where('tags', 'array-contains', this.search));
-      });
+    this.memes$ = this.searchQuery.pipe(flatMap(search => this.memeService.getMemes(ref => ref.where('tags', 'array-contains', search))))
+    this.searchQuery.subscribe(search => this.search = search)
   }
 }

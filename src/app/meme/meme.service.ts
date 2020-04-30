@@ -46,6 +46,26 @@ export class MemeService {
       });
   }
 
+  editMeme(meme, id: string): void {
+    this.memeCollection.doc(id).update(meme)
+      .then(() => this.router.navigate(['meme', 'details', id]))
+      .then(() => this.snackBar.open('Edited successfully!', '', { duration: 4000 }))
+      .catch((err) => {
+        console.log(err);
+        this.snackBar.open(err.message, '', { duration: 4000 });
+      });
+  }
+
+  deleteMeme(id: string): void {
+    this.router.navigate(['user', 'profile'])
+    this.memeCollection.doc(id).delete()
+      .then(() => this.snackBar.open('Deleted successfully!', '', { duration: 4000 }))
+      .catch((err) => {
+        console.log(err);
+        this.snackBar.open(err.message, '', { duration: 4000 });
+      });
+  }
+
   getMemeById(id: string) {
     return this.memeCollection.doc(id).snapshotChanges().pipe(
       map(a => {

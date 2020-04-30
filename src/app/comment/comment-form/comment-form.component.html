@@ -5,15 +5,15 @@
         <form class="comment-form" [formGroup]="commentForm" (ngSubmit)="commentHandler(commentForm.value)">
             <mat-form-field class="comment-input">
                 <mat-label>Leave a comment</mat-label>
-                <textarea matInput minlength="5" maxlength="280" placeholder="Ex. It makes me feel..."
-                    formControlName="comment" id="comment"></textarea>
+                <input matInput minlength="5" maxlength="280" placeholder="Ex. It makes me feel..."
+                    formControlName="comment" id="comment" />
+                <button mat-icon-button color="primary" matSuffix type="submit" [disabled]="commentForm.invalid">
+                    <mat-icon>send</mat-icon>
+                </button>
             </mat-form-field>
             <mat-error *ngIf="commentForm.get('comment').invalid && commentForm.get('comment').touched">
                 Your comment must be between 5 and 280 characters long!
             </mat-error>
-            <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">
-                Comment
-            </button>
         </form>
     </mat-card-header>
 </mat-card>

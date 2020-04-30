@@ -6,7 +6,7 @@
         <mat-card-content>
             <mat-chip-list>
                 Tags:
-                <mat-chip *ngFor="let tag of meme.tags" routerLink="/meme/search/{{tag}}">{{tag}}</mat-chip>
+                <mat-chip *ngFor="let tag of meme.tags" routerLink="/meme/search" [queryParams]="{'search': tag}">{{tag}}</mat-chip>
             </mat-chip-list>
         </mat-card-content>
         <mat-card-actions>
@@ -15,6 +15,9 @@
             </button>
             <button *ngIf="!user" mat-raised-button color="primary" routerLink="/auth/login">
                 <mat-icon>exit_to_app</mat-icon> Login
+            </button>
+            <button *ngIf="isAuthor" mat-raised-button color="primary" routerLink="/meme/edit/{{meme.id}}">
+                <mat-icon>edit</mat-icon> Edit
             </button>
         </mat-card-actions>
     </mat-card>
